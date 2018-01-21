@@ -14,3 +14,6 @@ URL.prototype.inspect = function inspect()
 Object.defineProperty(URL.prototype, 'inspect', {
 	enumerable: false,
 });
+
+export { URL };
+export default URL;
