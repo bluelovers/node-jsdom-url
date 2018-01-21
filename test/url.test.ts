@@ -4,7 +4,7 @@
 
 import localDev, { relative, expect, path, assert, util } from './_local-dev';
 
-import URL, { serializeHost } from '..';
+import URL from '..';
 
 // @ts-ignore
 describe(relative(__filename), () =>
@@ -42,9 +42,12 @@ describe(relative(__filename), () =>
 			done();
 		});
 
+		// @ts-ignore
 		it(`exports`, function (done)
 		{
+			// @ts-ignore
 			let self = require("..");
+			// @ts-ignore
 			let ks = Object.keys(require("whatwg-url"));
 
 			expect(self).to.include.all.keys(ks);
