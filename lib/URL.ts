@@ -4,9 +4,10 @@
 
 import * as conversions from 'webidl-conversions';
 import { interface as WURL } from 'whatwg-url/lib/URL';
-import { URLImplCore, URLImpl } from './URLImpl';
+import { URLImplCore, URLImpl, packProxy } from './URLImpl';
 import { URLSearchParams } from './URLSearchParams';
 import { isValidURLObject } from './valid/URL';
+import createClassProxy from 'class-proxy';
 
 WURL.prototype.inspect = function inspect()
 {
@@ -18,8 +19,9 @@ Object.defineProperty(WURL.prototype, 'inspect', {
 	enumerable: false,
 });
 
-export class URL extends URLImpl
+export class URLCore extends URLImplCore
 {
+	/*
 	href: string;
 	origin: string;
 	protocol: string;
@@ -35,6 +37,7 @@ export class URL extends URLImpl
 
 	_query?: URLSearchParams;
 	_url?: URLImplCore.IImpl;
+	*/
 
 	constructor(href, base?)
 	{
@@ -56,17 +59,27 @@ export class URL extends URLImpl
 		super([href, base || undefined]);
 	}
 
+	get [Symbol.toStringTag]()
+	{
+		return 'URL';
+	}
+
+	/*
 	static create(href, base?)
 	{
 		return new this(href, base);
 	}
+	*/
 }
+
+export const URL = packProxy(URLCore);
 
 /*
 let url = new URL(['https://www.npmjs.com/package/dgeni?l=1&l=2&k=kkk前篇']);
+let url2 = new URLImpl(['https://www.npmjs.com/package/dgeni?l=1&l=2&k=kkk']);
 
-console.log(url);
-console.dir(url);
+console.log(url, url instanceof URLImpl);
+console.log(url2, url2 instanceof URL, url + '');
 */
 
 export default URL;

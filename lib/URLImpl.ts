@@ -42,9 +42,14 @@ export class URLImplCore extends WURLImpl
 		return new this(href, base);
 	}
 
+	get [Symbol.toStringTag]()
+	{
+		return 'URLImpl';
+	}
+
 	inspect()
 	{
-		let name = 'URL';
+		let name = this[Symbol.toStringTag];
 
 		return `${name}("${this.toString()}")`;
 	}
@@ -77,7 +82,14 @@ export class URLImplCore extends WURLImpl
 	}
 }
 
-export namespace URLImplCore
+export interface IURL extends URLImplCore.IURL
+{}
+export interface IImpl extends URLImplCore.IImpl
+{}
+export interface IStaticURL<T> extends URLImplCore.IStaticURL<T>
+{}
+
+export module URLImplCore
 {
 	export interface IImpl
 	{
@@ -107,9 +119,16 @@ export namespace URLImplCore
 		hash: string;
 		searchParams?: URLSearchParams;
 	}
+
+	export interface IStaticURL<T> extends createClassProxy.ClassProxyStatic<T>
+	{
+		create(href: Array<T | string>): T;
+		create(href: T | string, base?: T | string): T;
+		create(href: any, base?: any): T;
+	}
 }
 
-export function packProxy<T>(classURL: createClassProxy.ClassProxyStatic<T>)
+export function packProxy<T>(classURL: URLImplCore.IStaticURL<T>)
 {
 	return createClassProxy(classURL, {
 		get(target, name)
@@ -153,13 +172,14 @@ export function packProxy<T>(classURL: createClassProxy.ClassProxyStatic<T>)
 				configurable: true,
 			};
 		},
+
 		/*
 		construct(target, args)
 		{
 			return new target(...args);
 		},
 		*/
-	});
+	} as createClassProxy.IClassProxyHandler) as URLImplCore.IStaticURL<T>;
 }
 
 export const URLImpl = packProxy(URLImplCore);

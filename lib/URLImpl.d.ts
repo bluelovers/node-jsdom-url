@@ -18,13 +18,20 @@ export declare class URLImplCore extends WURLImpl {
     _url?: URLImplCore.IImpl;
     constructor(href: any, base?: any);
     static create(href: any, base?: any): URLImplCore;
+    readonly [Symbol.toStringTag]: string;
     inspect(): string;
     toJSON(): string;
     toString(): string;
     toObject(): URLImplCore.IURL;
     static isValidURLObject(url: any): string;
 }
-export declare namespace URLImplCore {
+export interface IURL extends URLImplCore.IURL {
+}
+export interface IImpl extends URLImplCore.IImpl {
+}
+export interface IStaticURL<T> extends URLImplCore.IStaticURL<T> {
+}
+export declare module URLImplCore {
     interface IImpl {
         scheme: string;
         username: string;
@@ -50,7 +57,12 @@ export declare namespace URLImplCore {
         hash: string;
         searchParams?: URLSearchParams;
     }
+    interface IStaticURL<T> extends createClassProxy.ClassProxyStatic<T> {
+        create(href: Array<T | string>): T;
+        create(href: T | string, base?: T | string): T;
+        create(href: any, base?: any): T;
+    }
 }
-export declare function packProxy<T>(classURL: createClassProxy.ClassProxyStatic<T>): createClassProxy.ClassProxyStatic<T>;
-export declare const URLImpl: createClassProxy.ClassProxyStatic<URLImplCore>;
+export declare function packProxy<T>(classURL: URLImplCore.IStaticURL<T>): URLImplCore.IStaticURL<T>;
+export declare const URLImpl: URLImplCore.IStaticURL<URLImplCore>;
 export default URLImpl;

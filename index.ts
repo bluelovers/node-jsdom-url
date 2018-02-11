@@ -8,9 +8,11 @@ import { isValidURLObject } from './lib/valid/URL';
 export { isValidURLObject }
 export const isValidURL = isValidURLObject;
 
+export * from './lib/URLImpl';
+import { URLImpl } from './lib/URLImpl';
+
 import { URLSearchParams } from './lib/URLSearchParams';
 import { URL } from './lib/URL';
-import { URLImpl, URLImplCore } from './lib/URLImpl';
 
 export { URL, URLImpl, URLSearchParams }
 

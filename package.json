@@ -27,7 +27,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "class-proxy": "^1.0.1",
+    "class-proxy": "^1.1.0",
     "whatwg-url": "^6.4.0"
   },
   "devDependencies": {}
