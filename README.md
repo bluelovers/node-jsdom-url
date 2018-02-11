@@ -1,6 +1,6 @@
 # jsdom-url
 
-> a not strict JSDOM URL object
+> a proxy JSDOM URL object
 
 `npm install jsdom-url`
 
