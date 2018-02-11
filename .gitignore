@@ -1,6 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
-*.js
-*.d.ts
+
 package-lock.json
 /test/temp.ts
 ### git template

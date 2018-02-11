@@ -109,55 +109,60 @@ export namespace URLImplCore
 	}
 }
 
-export const URLImpl = createClassProxy(URLImplCore, {
-	get(target, name)
-	{
-		return target[name];
-	},
-	set(target, prop, value, receiver)
-	{
-		if (prop == '_query')
+export function packProxy<T>(classURL: createClassProxy.ClassProxyStatic<T>)
+{
+	return createClassProxy(classURL, {
+		get(target, name)
 		{
-			value._url = target;
+			return target[name];
+		},
+		set(target, prop, value, receiver)
+		{
+			if (prop == '_query')
+			{
+				value._url = target;
 
-			console.log(value);
-		}
+				//console.log(value);
+			}
 
-		target[prop] = value;
-		return true;
-	},
-	ownKeys(target): string[]
-	{
-		return [
-			'href',
-			'origin',
-			'protocol',
-			'username',
-			'password',
-			'host',
-			'hostname',
-			'port',
-			'pathname',
-			'search',
-			'hash',
-			'searchParams',
-		];
-	},
-	getOwnPropertyDescriptor(target, prop)
-	{
-		return {
-			value: target[prop],
-			enumerable: this.ownKeys(target).includes(prop),
-			configurable: true,
-		};
-	},
-	/*
-	construct(target, args)
-	{
-		return new target(...args);
-	},
-	*/
-});
+			target[prop] = value;
+			return true;
+		},
+		ownKeys(target): string[]
+		{
+			return [
+				'href',
+				'origin',
+				'protocol',
+				'username',
+				'password',
+				'host',
+				'hostname',
+				'port',
+				'pathname',
+				'search',
+				'hash',
+				'searchParams',
+			];
+		},
+		getOwnPropertyDescriptor(target, prop)
+		{
+			return {
+				value: target[prop],
+				enumerable: this.ownKeys(target).includes(prop),
+				configurable: true,
+			};
+		},
+		/*
+		construct(target, args)
+		{
+			return new target(...args);
+		},
+		*/
+	});
+}
+
+export const URLImpl = packProxy(URLImplCore);
 
 /*
 let url = new URLImpl(['https://www.npmjs.com/package/dgeni?l=1&l=2&k=kkk']);
