@@ -1,6 +1,6 @@
 {
   "name": "jsdom-url",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "a proxy JSDOM URL object",
   "keywords": [
     "href",
@@ -8,14 +8,27 @@
     "url",
     "whatwg"
   ],
+  "homepage": "https://github.com/bluelovers/node-jsdom-url#readme",
+  "bugs": {
+    "url": "https://github.com/bluelovers/node-jsdom-url/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluelovers/node-jsdom-url.git"
+  },
   "license": "ISC",
   "author": "",
   "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "class-proxy": "^1.0.1",
     "whatwg-url": "^6.4.0"
-  }
+  },
+  "devDependencies": {}
 }
