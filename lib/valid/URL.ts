@@ -2,10 +2,10 @@
  * Created by user on 2018/1/21/021.
  */
 
-import { implementation } from 'whatwg-url/lib/URL-impl';
+import { implementation as WURLImpl } from 'whatwg-url/lib/URL-impl';
 import { interface as WURL } from 'whatwg-url/lib/URL';
 
-export function isValid(obj): string
+export function isValidURLObject(obj): string
 {
 	if (!obj)
 	{
@@ -15,7 +15,7 @@ export function isValid(obj): string
 	{
 		return obj;
 	}
-	else if (obj instanceof implementation || obj instanceof WURL)
+	else if (obj instanceof WURLImpl || obj instanceof WURL)
 	{
 		return obj.href;
 	}
@@ -27,4 +27,4 @@ export function isValid(obj): string
 	return null;
 }
 
-export default isValid;
+export default isValidURLObject;

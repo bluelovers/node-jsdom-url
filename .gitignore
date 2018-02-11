@@ -2,3 +2,20 @@
 *.js
 *.d.ts
 package-lock.json
+/test/temp.ts
+### git template
+.idea
+
+~ci.list.txt
+~ci.log.txt
+~ci.errors.txt
+
+*.stackdump
+*.bak
+*.old
+
+test/**/*.js
+test/**/*.d.ts
+test/*.js
+test/*.d.ts
+test/temp

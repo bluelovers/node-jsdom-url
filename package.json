@@ -1,16 +1,21 @@
 {
   "name": "jsdom-url",
-  "version": "1.0.0",
-  "description": "a not strict JSDOM URL object",
+  "version": "2.0.0",
+  "description": "a proxy JSDOM URL object",
+  "keywords": [
+    "href",
+    "jsdom",
+    "url",
+    "whatwg"
+  ],
+  "license": "ISC",
+  "author": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "core-decorators": "^0.20.0",
+    "class-proxy": "^1.0.1",
     "whatwg-url": "^6.4.0"
   }
 }
