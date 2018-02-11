@@ -16,6 +16,8 @@ console.log(`-------------`);
 
 console.dir(url);
 
+console.dir(url._url);
+
 console.log(`-------------`);
 
 for (let k in url)
@@ -27,4 +29,4 @@ console.log(`-------------`);
 
 console.log(url.origin);
 
-console.dir(url._query);
+console.dir(url._query.getAll('a'));

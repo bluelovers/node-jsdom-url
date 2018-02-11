@@ -4,14 +4,14 @@
 
 import * as conversions from 'webidl-conversions';
 import { interface as WURL } from 'whatwg-url/lib/URL';
-import { URLImplCore, URLImpl, packProxy } from './URLImpl';
+import { URLImplCore, URLImpl, packProxyURL } from './URLImpl';
 import { URLSearchParams } from './URLSearchParams';
 import { isValidURLObject } from './valid/URL';
 import createClassProxy from 'class-proxy';
 
 WURL.prototype.inspect = function inspect()
 {
-	let name = 'whatwg-url';
+	let name = 'WHATWGURL';
 	return `${name}("${this.toString()}")`;
 };
 
@@ -72,7 +72,7 @@ export class URLCore extends URLImplCore
 	*/
 }
 
-export const URL = packProxy(URLCore);
+export const URL = packProxyURL(URLCore);
 
 /*
 let url = new URL(['https://www.npmjs.com/package/dgeni?l=1&l=2&k=kkk前篇']);

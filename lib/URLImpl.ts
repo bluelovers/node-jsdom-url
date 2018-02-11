@@ -4,7 +4,7 @@
 
 import createClassProxy from 'class-proxy';
 import { implementation as WURLImpl } from 'whatwg-url/lib/URL-impl';
-import { URLSearchParams } from './URLSearchParams';
+import { URLSearchParamsImpl, URLSearchParamsImplCore, URLSearchParamsCore, IURLSearchParams } from './URLSearchParams';
 import { isValidURLObject } from './valid/URL';
 
 export class URLImplCore extends WURLImpl
@@ -20,9 +20,9 @@ export class URLImplCore extends WURLImpl
 	pathname: string;
 	search: string;
 	hash: string;
-	searchParams: URLSearchParams;
+	searchParams: URLSearchParamsImplCore;
 
-	_query?: URLSearchParams;
+	_query?: URLSearchParamsImplCore;
 	_url?: URLImplCore.IImpl;
 
 	constructor(href, base?)
@@ -35,6 +35,12 @@ export class URLImplCore extends WURLImpl
 		//console.log(222, [href, base]);
 
 		super([href && href.toString(), base ? base.toString() : undefined]);
+
+		this._query = new URLSearchParamsImpl(this._query, {
+			doNotStripQMark: true,
+		});
+
+		//console.log(this._query);
 	}
 
 	static create(href, base?)
@@ -84,6 +90,8 @@ export class URLImplCore extends WURLImpl
 
 export interface IURL extends URLImplCore.IURL
 {}
+export interface IURL2 extends URLImplCore.IURL2
+{}
 export interface IImpl extends URLImplCore.IImpl
 {}
 export interface IStaticURL<T> extends URLImplCore.IStaticURL<T>
@@ -117,7 +125,13 @@ export module URLImplCore
 		pathname: string;
 		search: string;
 		hash: string;
-		searchParams?: URLSearchParams;
+		searchParams?: IURLSearchParams | URLSearchParamsImplCore;
+	}
+
+	export interface IURL2
+	{
+		_query: IURLSearchParams | URLSearchParamsImplCore;
+		_url: URLImplCore.IImpl;
 	}
 
 	export interface IStaticURL<T> extends createClassProxy.ClassProxyStatic<T>
@@ -128,7 +142,7 @@ export module URLImplCore
 	}
 }
 
-export function packProxy<T>(classURL: URLImplCore.IStaticURL<T>)
+export function packProxyURL<T>(classURL: URLImplCore.IStaticURL<T>)
 {
 	return createClassProxy(classURL, {
 		get(target, name)
@@ -182,7 +196,7 @@ export function packProxy<T>(classURL: URLImplCore.IStaticURL<T>)
 	} as createClassProxy.IClassProxyHandler) as URLImplCore.IStaticURL<T>;
 }
 
-export const URLImpl = packProxy(URLImplCore);
+export const URLImpl = packProxyURL(URLImplCore);
 
 /*
 let url = new URLImpl(['https://www.npmjs.com/package/dgeni?l=1&l=2&k=kkk']);

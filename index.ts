@@ -11,9 +11,10 @@ export const isValidURL = isValidURLObject;
 export * from './lib/URLImpl';
 import { URLImpl } from './lib/URLImpl';
 
-import { URLSearchParams } from './lib/URLSearchParams';
+export * from './lib/URLSearchParams';
+import { URLSearchParams, URLSearchParamsImpl } from './lib/URLSearchParams';
 import { URL } from './lib/URL';
 
-export { URL, URLImpl, URLSearchParams }
+export { URL, URLImpl, URLSearchParams, URLSearchParamsImpl }
 
 export default URL;

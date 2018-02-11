@@ -1,6 +1,6 @@
 import createClassProxy from 'class-proxy';
 import { implementation as WURLImpl } from 'whatwg-url/lib/URL-impl';
-import { URLSearchParams } from './URLSearchParams';
+import { URLSearchParamsImplCore, IURLSearchParams } from './URLSearchParams';
 export declare class URLImplCore extends WURLImpl {
     href: string;
     origin: string;
@@ -13,8 +13,8 @@ export declare class URLImplCore extends WURLImpl {
     pathname: string;
     search: string;
     hash: string;
-    searchParams: URLSearchParams;
-    _query?: URLSearchParams;
+    searchParams: URLSearchParamsImplCore;
+    _query?: URLSearchParamsImplCore;
     _url?: URLImplCore.IImpl;
     constructor(href: any, base?: any);
     static create(href: any, base?: any): URLImplCore;
@@ -26,6 +26,8 @@ export declare class URLImplCore extends WURLImpl {
     static isValidURLObject(url: any): string;
 }
 export interface IURL extends URLImplCore.IURL {
+}
+export interface IURL2 extends URLImplCore.IURL2 {
 }
 export interface IImpl extends URLImplCore.IImpl {
 }
@@ -55,7 +57,11 @@ export declare module URLImplCore {
         pathname: string;
         search: string;
         hash: string;
-        searchParams?: URLSearchParams;
+        searchParams?: IURLSearchParams | URLSearchParamsImplCore;
+    }
+    interface IURL2 {
+        _query: IURLSearchParams | URLSearchParamsImplCore;
+        _url: URLImplCore.IImpl;
     }
     interface IStaticURL<T> extends createClassProxy.ClassProxyStatic<T> {
         create(href: Array<T | string>): T;
@@ -63,6 +69,6 @@ export declare module URLImplCore {
         create(href: any, base?: any): T;
     }
 }
-export declare function packProxy<T>(classURL: URLImplCore.IStaticURL<T>): URLImplCore.IStaticURL<T>;
+export declare function packProxyURL<T>(classURL: URLImplCore.IStaticURL<T>): URLImplCore.IStaticURL<T>;
 export declare const URLImpl: URLImplCore.IStaticURL<URLImplCore>;
 export default URLImpl;
