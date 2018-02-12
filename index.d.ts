@@ -1,3 +1,6 @@
+/**
+ * Created by user on 2018/1/21/021.
+ */
 export * from 'whatwg-url';
 import { isValidURLObject } from './lib/valid/URL';
 export { isValidURLObject };

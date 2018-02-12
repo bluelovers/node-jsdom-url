@@ -22,12 +22,12 @@
     "locale": "zh-TW",
     "pretty": true,
 
-    "removeComments": true,
+    //"removeComments": true,
 
-    "baseUrl": ".",
-    "sourceRoot": ".",
-    "rootDir": ".",
-    "outDir": ".",
+//    "baseUrl": ".",
+//    "sourceRoot": ".",
+//    "rootDir": ".",
+//    "outDir": ".",
 
     "paths": {
 

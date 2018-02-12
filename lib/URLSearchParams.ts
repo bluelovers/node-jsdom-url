@@ -2,7 +2,7 @@
  * Created by user on 2018/1/21/021.
  */
 
-import { interface as WURLSearchParams } from 'whatwg-url/lib/URLSearchParams';
+import { interface as WURLSearchParams, createDefaultIterator } from 'whatwg-url/lib/URLSearchParams';
 import { implementation as WURLSearchParamsImpl } from 'whatwg-url/lib/URLSearchParams-impl';
 import createClassProxy from 'class-proxy';
 import { IURL, IImpl, IURL2 } from './URLImpl';
@@ -27,18 +27,6 @@ WURLSearchParams.prototype.inspect = function ()
 Object.defineProperty(WURLSearchParams.prototype, 'inspect', {
 	enumerable: false,
 });
-
-/*
-
-WURLSearchParams.prototype.toJSON = function inspect()
-{
-	return this.toString();
-};
-
-Object.defineProperty(WURLSearchParams.prototype, 'toJSON', {
-	enumerable: false,
-});
-*/
 
 export function unsafeRemoveStr(s): string
 {
@@ -136,7 +124,7 @@ export class URLSearchParamsImplCore extends WURLSearchParamsImpl
 
 	clone()
 	{
-		return new URLSearchParamsImpl(this.toString());
+		return new URLSearchParamsImpl(this);
 	}
 
 	get [Symbol.toStringTag]()
@@ -189,6 +177,21 @@ export class URLSearchParamsImplCore extends WURLSearchParamsImpl
 	}
 
 	[Symbol.iterator]()
+	{
+		return super[Symbol.iterator]();
+	}
+
+	keys()
+	{
+		return createDefaultIterator(this, 'key');
+	}
+
+	values()
+	{
+		return createDefaultIterator(this, 'values');
+	}
+
+	entries()
 	{
 		return super[Symbol.iterator]();
 	}
@@ -285,17 +288,58 @@ export class URLSearchParamsCore extends WURLSearchParams
 	{
 		return this._list.length;
 	}
+
+	entries()
+	{
+		return super.entries();
+	}
+
+	keys()
+	{
+		return super.keys();
+	}
+
+	values()
+	{
+		return super.values();
+	}
+
+	forEach(callback)
+	{
+		return super.forEach(callback);
+	}
+
+	sort()
+	{
+		return super.sort();
+	}
+
+	has(name)
+	{
+		return super.has(name);
+	}
+
+	set(name, value)
+	{
+		return super.set(name, value);
+	}
 }
 
 export interface IStaticURLSearchParams<T> extends URLSearchParamsCore.IStaticURLSearchParams<T>
 {}
+
 export interface IPrivateData extends URLSearchParamsCore.IPrivateData
 {}
+
 export interface IURLSearchParams extends URLSearchParamsCore.IURLSearchParams
 {}
 
+export type vURLSearchParamsItem = URLSearchParamsCore.vURLSearchParamsItem;
+
 export module URLSearchParamsCore
 {
+	export type vURLSearchParamsItem = [string, string];
+
 	export interface IPrivateData
 	{
 		doNotStripQMark?: boolean,
@@ -325,11 +369,14 @@ export module URLSearchParamsCore
 	export interface IStaticURLSearchParams<T> extends createClassProxy.ClassProxyStatic<T>
 	{
 		new(constructorArgs, privateData?: IPrivateData, ...argv): T
+
 		create(constructorArgs, privateData?: IPrivateData, ...argv): T;
 	}
 }
 
-export function packProxyURLSearchParams<T>(classURL: URLSearchParamsCore.IStaticURLSearchParams<T>, handler?: createClassProxy.IClassProxyHandler)
+export function packProxyURLSearchParams<T>(classURL: URLSearchParamsCore.IStaticURLSearchParams<T>,
+	handler?: createClassProxy.IClassProxyHandler
+)
 {
 	return createClassProxy(classURL, Object.assign({
 		get(target, name)

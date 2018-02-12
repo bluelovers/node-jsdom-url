@@ -1,3 +1,6 @@
+/**
+ * Created by user on 2018/2/11/011.
+ */
 import createClassProxy from 'class-proxy';
 import { implementation as WURLImpl } from 'whatwg-url/lib/URL-impl';
 import { URLSearchParamsImplCore, IURLSearchParams } from './URLSearchParams';
