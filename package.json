@@ -1,6 +1,6 @@
 {
   "name": "jsdom-url",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "a proxy JSDOM URL object",
   "keywords": [
     "href",
