@@ -36,7 +36,7 @@ export function unsafeRemoveStr(s): string
 export class URLSearchParamsImplCore extends WURLSearchParamsImpl
 {
 	_list: [string, string][];
-	_url?: IURL & IURL2;
+	_url?;
 
 	constructor(constructorArgs: string, privateData?: URLSearchParamsCore.IPrivateData, ...argv)
 	constructor(constructorArgs: [string, string][], privateData?: URLSearchParamsCore.IPrivateData, ...argv)
@@ -245,7 +245,7 @@ export class URLSearchParamsImplCore extends WURLSearchParamsImpl
 export class URLSearchParamsCore extends WURLSearchParams
 {
 	_list: [string, string][];
-	_url?: IURL & IURL2;
+	_url?;
 
 	static create(...argv)
 	{
@@ -323,6 +323,11 @@ export class URLSearchParamsCore extends WURLSearchParams
 	{
 		return super.set(name, value);
 	}
+
+	append(name, value)
+	{
+		return super.append(name, value);
+	}
 }
 
 export interface IStaticURLSearchParams<T> extends URLSearchParamsCore.IStaticURLSearchParams<T>
@@ -346,24 +351,10 @@ export module URLSearchParamsCore
 		inheritURL?: boolean,
 	}
 
-	export interface ISearchParams
-	{
-		get(key: string): string
-
-		getAll(key: string): string[]
-
-		sort()
-
-		has(name): boolean
-
-		delete(name)
-
-	}
-
 	export interface IURLSearchParams
 	{
 		_list: [string, string][],
-		_url?: IURL & IURL2;
+		_url?;
 	}
 
 	export interface IStaticURLSearchParams<T> extends createClassProxy.ClassProxyStatic<T>

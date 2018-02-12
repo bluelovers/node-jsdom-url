@@ -4,11 +4,11 @@
 import { interface as WURLSearchParams } from 'whatwg-url/lib/URLSearchParams';
 import { implementation as WURLSearchParamsImpl } from 'whatwg-url/lib/URLSearchParams-impl';
 import createClassProxy from 'class-proxy';
-import { IURL, IImpl, IURL2 } from './URLImpl';
+import { IURL, IImpl } from './URLImpl';
 export declare function unsafeRemoveStr(s: any): string;
 export declare class URLSearchParamsImplCore extends WURLSearchParamsImpl {
     _list: [string, string][];
-    _url?: IURL & IURL2;
+    _url?: any;
     constructor(constructorArgs: string, privateData?: URLSearchParamsCore.IPrivateData, ...argv: any[]);
     constructor(constructorArgs: [string, string][], privateData?: URLSearchParamsCore.IPrivateData, ...argv: any[]);
     constructor(constructorArgs: IImpl, privateData?: URLSearchParamsCore.IPrivateData, ...argv: any[]);
@@ -45,7 +45,7 @@ export declare class URLSearchParamsImplCore extends WURLSearchParamsImpl {
 }
 export declare class URLSearchParamsCore extends WURLSearchParams {
     _list: [string, string][];
-    _url?: IURL & IURL2;
+    _url?: any;
     static create(...argv: any[]): URLSearchParamsCore;
     readonly [Symbol.toStringTag]: string;
     toArray(): [string, string][];
@@ -59,6 +59,7 @@ export declare class URLSearchParamsCore extends WURLSearchParams {
     sort(): any;
     has(name: any): any;
     set(name: any, value: any): any;
+    append(name: any, value: any): any;
 }
 export interface IStaticURLSearchParams<T> extends URLSearchParamsCore.IStaticURLSearchParams<T> {
 }
@@ -73,16 +74,9 @@ export declare module URLSearchParamsCore {
         doNotStripQMark?: boolean;
         inheritURL?: boolean;
     }
-    interface ISearchParams {
-        get(key: string): string;
-        getAll(key: string): string[];
-        sort(): any;
-        has(name: any): boolean;
-        delete(name: any): any;
-    }
     interface IURLSearchParams {
         _list: [string, string][];
-        _url?: IURL & IURL2;
+        _url?: any;
     }
     interface IStaticURLSearchParams<T> extends createClassProxy.ClassProxyStatic<T> {
         new (constructorArgs: any, privateData?: IPrivateData, ...argv: any[]): T;

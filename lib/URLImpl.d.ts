@@ -3,7 +3,8 @@
  */
 import createClassProxy from 'class-proxy';
 import { implementation as WURLImpl } from 'whatwg-url/lib/URL-impl';
-import { URLSearchParamsImplCore, IURLSearchParams } from './URLSearchParams';
+import { URLSearchParamsImpl, IURLSearchParams, URLSearchParamsImplCore } from './URLSearchParams';
+export { URLSearchParamsImpl, URLSearchParamsImplCore };
 export declare class URLImplCore extends WURLImpl {
     href: string;
     origin: string;
@@ -16,11 +17,11 @@ export declare class URLImplCore extends WURLImpl {
     pathname: string;
     search: string;
     hash: string;
-    searchParams: URLSearchParamsImplCore;
     _query?: URLSearchParamsImplCore;
     _url?: URLImplCore.IImpl;
     constructor(href: any, base?: any);
     static create(href: any, base?: any): URLImplCore;
+    readonly searchParams: URLSearchParamsImplCore;
     readonly [Symbol.toStringTag]: string;
     inspect(): string;
     toJSON(): string;
@@ -60,11 +61,11 @@ export declare module URLImplCore {
         pathname: string;
         search: string;
         hash: string;
-        searchParams?: IURLSearchParams | URLSearchParamsImplCore;
+        searchParams?: IURLSearchParams;
     }
     interface IURL2 {
-        _query: IURLSearchParams | URLSearchParamsImplCore;
-        _url: URLImplCore.IImpl;
+        _query?: IURLSearchParams;
+        _url?: URLImplCore.IImpl;
     }
     interface IStaticURL<T> extends createClassProxy.ClassProxyStatic<T> {
         create(href: Array<T | string>): T;

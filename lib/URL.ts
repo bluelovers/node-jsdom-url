@@ -5,7 +5,6 @@
 import * as conversions from 'webidl-conversions';
 import { interface as WURL } from 'whatwg-url/lib/URL';
 import { URLImplCore, URLImpl, packProxyURL } from './URLImpl';
-import { URLSearchParams } from './URLSearchParams';
 import { isValidURLObject } from './valid/URL';
 import createClassProxy from 'class-proxy';
 
@@ -21,24 +20,6 @@ Object.defineProperty(WURL.prototype, 'inspect', {
 
 export class URLCore extends URLImplCore
 {
-	/*
-	href: string;
-	origin: string;
-	protocol: string;
-	username: string;
-	password: string;
-	host: string;
-	hostname: string;
-	port: string;
-	pathname: string;
-	search: string;
-	hash: string;
-	searchParams: URLSearchParams;
-
-	_query?: URLSearchParams;
-	_url?: URLImplCore.IImpl;
-	*/
-
 	constructor(href, base?)
 	{
 		if (Array.isArray(href))
@@ -83,3 +64,13 @@ console.log(url2, url2 instanceof URL, url + '');
 */
 
 export default URL;
+
+/*
+let parsedURL: URL;
+
+parsedURL = new URL('https://www.npmjs.com/package/dgeni?l=1&l=2&k=kkk前篇');
+
+console.dir(parsedURL);
+
+console.log(parsedURL.searchParams);
+*/
