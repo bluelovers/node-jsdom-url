@@ -1,11 +1,17 @@
 {
   "name": "jsdom-url",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "a proxy JSDOM URL object",
   "keywords": [
     "href",
     "jsdom",
     "url",
+    "uri",
+    "urlencoded",
+    "urlencode",
+    "urldecode",
+    "parse",
+    "decode",
     "whatwg"
   ],
   "homepage": "https://github.com/bluelovers/node-jsdom-url#readme",
@@ -30,5 +36,7 @@
     "class-proxy": "^1.1.0",
     "whatwg-url": "^6.4.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/node": "^9.4.6"
+  }
 }

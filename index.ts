@@ -3,18 +3,20 @@
  */
 
 export * from 'whatwg-url';
-import { isValidURLObject } from './lib/valid/URL';
 
+import { isValidURLObject } from './lib/valid/URL';
 export { isValidURLObject }
 export const isValidURL = isValidURLObject;
 
 export * from './lib/URLImpl';
-import { URLImpl } from './lib/URLImpl';
+export { URLImpl } from './lib/URLImpl';
 
 export * from './lib/URLSearchParams';
-import { URLSearchParams, URLSearchParamsImpl } from './lib/URLSearchParams';
-import { URL } from './lib/URL';
+export { URLSearchParams, URLSearchParamsImpl } from './lib/URLSearchParams';
 
-export { URL, URLImpl, URLSearchParams, URLSearchParamsImpl }
+export { decodeUrlencoded, IParseUrlencoded, parseUrlencoded } from './lib/urlencoded';
+
+import { URL } from './lib/URL';
+export { URL }
 
 export default URL;
