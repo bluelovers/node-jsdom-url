@@ -2,7 +2,7 @@
  * Created by user on 2018/1/21/021.
  */
 
-import * as conversions from 'webidl-conversions';
+import conversions = require('webidl-conversions');
 import { interface as WURL } from 'whatwg-url/lib/URL';
 import { URLImplCore, URLImpl, packProxyURL } from './URLImpl';
 import { isValidURLObject } from './valid/URL';

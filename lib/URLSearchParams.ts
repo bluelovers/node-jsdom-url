@@ -249,6 +249,7 @@ export class URLSearchParamsCore extends WURLSearchParams
 
 	static create(...argv)
 	{
+		// @ts-ignore
 		return new this(...argv);
 	}
 

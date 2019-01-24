@@ -126,5 +126,4 @@ export function parseUrlencoded(input, options: IOptionsUrldecodeed = {}): IPars
 	return output;
 }
 
-import * as self from './urlencoded';
-export default self;
+export default exports as typeof import('./urlencoded');

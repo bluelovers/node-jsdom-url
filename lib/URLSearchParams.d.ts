@@ -46,7 +46,7 @@ export declare class URLSearchParamsImplCore extends WURLSearchParamsImpl {
 export declare class URLSearchParamsCore extends WURLSearchParams {
     _list: [string, string][];
     _url?: any;
-    static create(...argv: any[]): URLSearchParamsCore;
+    static create(...argv: any[]): any;
     readonly [Symbol.toStringTag]: string;
     toArray(): [string, string][];
     listAll(): [string, string][];
@@ -85,5 +85,5 @@ export declare module URLSearchParamsCore {
 }
 export declare function packProxyURLSearchParams<T>(classURL: URLSearchParamsCore.IStaticURLSearchParams<T>, handler?: createClassProxy.IClassProxyHandler): URLSearchParamsCore.IStaticURLSearchParams<T>;
 export declare const URLSearchParamsImpl: URLSearchParamsCore.IStaticURLSearchParams<URLSearchParamsImplCore>;
-export declare const URLSearchParams: URLSearchParamsCore.IStaticURLSearchParams<URLSearchParamsCore>;
+export declare const URLSearchParams: URLSearchParamsCore.IStaticURLSearchParams<any>;
 export default URLSearchParams;
