@@ -20,3 +20,5 @@ test
 *.ts
 !*.d.ts
 /.*
+yarn.lock
+*.tgz

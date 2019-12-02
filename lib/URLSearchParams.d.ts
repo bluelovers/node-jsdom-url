@@ -3,7 +3,7 @@
  */
 import { interface as WURLSearchParams } from 'whatwg-url/lib/URLSearchParams';
 import { implementation as WURLSearchParamsImpl } from 'whatwg-url/lib/URLSearchParams-impl';
-import createClassProxy from 'class-proxy';
+import { ClassProxyStatic, IClassProxyHandler } from 'class-proxy';
 import { IURL, IImpl } from './URLImpl';
 export declare function unsafeRemoveStr(s: any): string;
 export declare class URLSearchParamsImplCore extends WURLSearchParamsImpl {
@@ -23,13 +23,13 @@ export declare class URLSearchParamsImplCore extends WURLSearchParamsImpl {
     static stripQMark(s: any, unsafe?: boolean): string;
     static create(constructorArgs: any, IPrivateData?: URLSearchParamsCore.IPrivateData, ...argv: any[]): URLSearchParamsImplCore;
     clone(): URLSearchParamsImplCore;
-    readonly [Symbol.toStringTag]: string;
+    get [Symbol.toStringTag](): string;
     inspect(): string;
     toJSON(): string;
     toArray(): [string, string][];
     listAll(): [string, string][];
     toString(bool?: boolean): string;
-    readonly length: number;
+    get length(): number;
     [Symbol.iterator](): any;
     keys(): any;
     values(): any;
@@ -47,11 +47,11 @@ export declare class URLSearchParamsCore extends WURLSearchParams {
     _list: [string, string][];
     _url?: any;
     static create(...argv: any[]): any;
-    readonly [Symbol.toStringTag]: string;
+    get [Symbol.toStringTag](): string;
     toArray(): [string, string][];
     listAll(): [string, string][];
     toString(bool?: boolean): string;
-    readonly length: number;
+    get length(): number;
     entries(): any;
     keys(): any;
     values(): any;
@@ -61,13 +61,10 @@ export declare class URLSearchParamsCore extends WURLSearchParams {
     set(name: any, value: any): any;
     append(name: any, value: any): any;
 }
-export interface IStaticURLSearchParams<T> extends URLSearchParamsCore.IStaticURLSearchParams<T> {
-}
-export interface IPrivateData extends URLSearchParamsCore.IPrivateData {
-}
-export interface IURLSearchParams extends URLSearchParamsCore.IURLSearchParams {
-}
-export declare type vURLSearchParamsItem = URLSearchParamsCore.vURLSearchParamsItem;
+export import IStaticURLSearchParams = URLSearchParamsCore.IStaticURLSearchParams;
+export import IPrivateData = URLSearchParamsCore.IPrivateData;
+export import IURLSearchParams = URLSearchParamsCore.IURLSearchParams;
+export import vURLSearchParamsItem = URLSearchParamsCore.vURLSearchParamsItem;
 export declare module URLSearchParamsCore {
     type vURLSearchParamsItem = [string, string];
     interface IPrivateData {
@@ -78,12 +75,12 @@ export declare module URLSearchParamsCore {
         _list: [string, string][];
         _url?: any;
     }
-    interface IStaticURLSearchParams<T> extends createClassProxy.ClassProxyStatic<T> {
+    interface IStaticURLSearchParams<T> extends ClassProxyStatic<T> {
         new (constructorArgs: any, privateData?: IPrivateData, ...argv: any[]): T;
         create(constructorArgs: any, privateData?: IPrivateData, ...argv: any[]): T;
     }
 }
-export declare function packProxyURLSearchParams<T>(classURL: URLSearchParamsCore.IStaticURLSearchParams<T>, handler?: createClassProxy.IClassProxyHandler): URLSearchParamsCore.IStaticURLSearchParams<T>;
-export declare const URLSearchParamsImpl: URLSearchParamsCore.IStaticURLSearchParams<URLSearchParamsImplCore>;
-export declare const URLSearchParams: URLSearchParamsCore.IStaticURLSearchParams<any>;
+export declare function packProxyURLSearchParams<T>(classURL: URLSearchParamsCore.IStaticURLSearchParams<T>, handler?: IClassProxyHandler): IStaticURLSearchParams<T>;
+export declare const URLSearchParamsImpl: IStaticURLSearchParams<URLSearchParamsImplCore>;
+export declare const URLSearchParams: IStaticURLSearchParams<any>;
 export default URLSearchParams;

@@ -1,7 +1,7 @@
 /**
  * Created by user on 2018/2/11/011.
  */
-import createClassProxy from 'class-proxy';
+import { ClassProxyStatic } from 'class-proxy';
 import { implementation as WURLImpl } from 'whatwg-url/lib/URL-impl';
 import { URLSearchParamsImpl, IURLSearchParams, URLSearchParamsImplCore } from './URLSearchParams';
 export { URLSearchParamsImpl, URLSearchParamsImplCore };
@@ -21,22 +21,18 @@ export declare class URLImplCore extends WURLImpl {
     _url?: URLImplCore.IImpl;
     constructor(href: any, base?: any);
     static create(href: any, base?: any): URLImplCore;
-    readonly searchParams: URLSearchParamsImplCore;
-    readonly [Symbol.toStringTag]: string;
+    get searchParams(): URLSearchParamsImplCore;
+    get [Symbol.toStringTag](): string;
     inspect(): string;
     toJSON(): string;
     toString(): string;
-    toObject(): URLImplCore.IURL;
+    toObject(): IURL;
     static isValidURLObject(url: any): string;
 }
-export interface IURL extends URLImplCore.IURL {
-}
-export interface IURL2 extends URLImplCore.IURL2 {
-}
-export interface IImpl extends URLImplCore.IImpl {
-}
-export interface IStaticURL<T> extends URLImplCore.IStaticURL<T> {
-}
+export import IURL = URLImplCore.IURL;
+export import IURL2 = URLImplCore.IURL2;
+export import IImpl = URLImplCore.IImpl;
+export import IStaticURL = URLImplCore.IStaticURL;
 export declare module URLImplCore {
     interface IImpl {
         scheme: string;
@@ -67,12 +63,15 @@ export declare module URLImplCore {
         _query?: IURLSearchParams;
         _url?: URLImplCore.IImpl;
     }
-    interface IStaticURL<T> extends createClassProxy.ClassProxyStatic<T> {
+    interface IStaticURL<T> extends ClassProxyStatic<T> {
+        new (href: Array<T | string>): T;
+        new (href: T | string, base?: T | string): T;
+        new (href: any, base?: any): T;
         create(href: Array<T | string>): T;
         create(href: T | string, base?: T | string): T;
         create(href: any, base?: any): T;
     }
 }
-export declare function packProxyURL<T>(classURL: URLImplCore.IStaticURL<T>): URLImplCore.IStaticURL<T>;
-export declare const URLImpl: URLImplCore.IStaticURL<URLImplCore>;
+export declare function packProxyURL<T>(classURL: URLImplCore.IStaticURL<T>): IStaticURL<T>;
+export declare const URLImpl: IStaticURL<URLImplCore>;
 export default URLImpl;

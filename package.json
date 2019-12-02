@@ -1,6 +1,6 @@
 {
   "name": "jsdom-url",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "a proxy JSDOM URL object",
   "keywords": [
     "href",
@@ -12,6 +12,7 @@
     "urldecode",
     "parse",
     "decode",
+    "whatwg-url",
     "whatwg"
   ],
   "homepage": "https://github.com/bluelovers/node-jsdom-url#readme",
