@@ -1,6 +1,6 @@
 {
   "name": "jsdom-url",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "description": "a proxy JSDOM URL object",
   "keywords": [
     "href",
@@ -30,13 +30,15 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublishOnly": "yarn run test",
+    "test": "npx mocha --require ts-node/register \"!(node_modules)/**/*.{test,spec}.{ts,tsx}\""
   },
   "dependencies": {
-    "class-proxy": "^1.1.1",
-    "whatwg-url": "^7.0.0"
+    "@types/whatwg-url": "^6.4.0",
+    "class-proxy": "^1.1.2",
+    "whatwg-url": "^7.1.0"
   },
   "devDependencies": {
-    "@types/node": "^10.12.18"
+    "@types/node": "^12.12.14"
   }
 }

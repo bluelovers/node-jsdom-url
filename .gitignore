@@ -18,3 +18,4 @@ test/**/*.d.ts
 test/*.js
 test/*.d.ts
 test/temp
+/yarn.lock

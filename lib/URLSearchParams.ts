@@ -4,7 +4,7 @@
 
 import { interface as WURLSearchParams, createDefaultIterator } from 'whatwg-url/lib/URLSearchParams';
 import { implementation as WURLSearchParamsImpl } from 'whatwg-url/lib/URLSearchParams-impl';
-import createClassProxy from 'class-proxy';
+import createClassProxy, { ClassProxyStatic, IClassProxyHandler } from 'class-proxy';
 import { IURL, IImpl, IURL2 } from './URLImpl';
 
 WURLSearchParamsImpl.prototype.inspect = function ()
@@ -331,16 +331,11 @@ export class URLSearchParamsCore extends WURLSearchParams
 	}
 }
 
-export interface IStaticURLSearchParams<T> extends URLSearchParamsCore.IStaticURLSearchParams<T>
-{}
+export import IStaticURLSearchParams = URLSearchParamsCore.IStaticURLSearchParams;
+export import IPrivateData = URLSearchParamsCore.IPrivateData;
+export import IURLSearchParams = URLSearchParamsCore.IURLSearchParams;
 
-export interface IPrivateData extends URLSearchParamsCore.IPrivateData
-{}
-
-export interface IURLSearchParams extends URLSearchParamsCore.IURLSearchParams
-{}
-
-export type vURLSearchParamsItem = URLSearchParamsCore.vURLSearchParamsItem;
+export import vURLSearchParamsItem = URLSearchParamsCore.vURLSearchParamsItem;
 
 export module URLSearchParamsCore
 {
@@ -358,7 +353,7 @@ export module URLSearchParamsCore
 		_url?;
 	}
 
-	export interface IStaticURLSearchParams<T> extends createClassProxy.ClassProxyStatic<T>
+	export interface IStaticURLSearchParams<T> extends ClassProxyStatic<T>
 	{
 		new(constructorArgs, privateData?: IPrivateData, ...argv): T
 
@@ -367,7 +362,7 @@ export module URLSearchParamsCore
 }
 
 export function packProxyURLSearchParams<T>(classURL: URLSearchParamsCore.IStaticURLSearchParams<T>,
-	handler?: createClassProxy.IClassProxyHandler
+	handler?: IClassProxyHandler
 )
 {
 	return createClassProxy(classURL, Object.assign({
@@ -380,7 +375,7 @@ export function packProxyURLSearchParams<T>(classURL: URLSearchParamsCore.IStati
 			target[prop] = value;
 			return true;
 		},
-	}, handler) as createClassProxy.IClassProxyHandler) as URLSearchParamsCore.IStaticURLSearchParams<T>;
+	}, handler) as IClassProxyHandler) as URLSearchParamsCore.IStaticURLSearchParams<T>;
 }
 
 export const URLSearchParamsImpl = packProxyURLSearchParams(URLSearchParamsImplCore);

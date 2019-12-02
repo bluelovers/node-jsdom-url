@@ -2,7 +2,7 @@
  * Created by user on 2018/2/11/011.
  */
 
-import createClassProxy from 'class-proxy';
+import createClassProxy, { IClassProxyHandler, ClassProxyStatic } from 'class-proxy';
 import { implementation as WURLImpl } from 'whatwg-url/lib/URL-impl';
 import { URLSearchParamsImpl, IURLSearchParams, URLSearchParamsImplCore } from './URLSearchParams';
 import { isValidURLObject } from './valid/URL';
@@ -94,14 +94,10 @@ export class URLImplCore extends WURLImpl
 	}
 }
 
-export interface IURL extends URLImplCore.IURL
-{}
-export interface IURL2 extends URLImplCore.IURL2
-{}
-export interface IImpl extends URLImplCore.IImpl
-{}
-export interface IStaticURL<T> extends URLImplCore.IStaticURL<T>
-{}
+export import IURL = URLImplCore.IURL;
+export import IURL2 = URLImplCore.IURL2;
+export import IImpl = URLImplCore.IImpl;
+export import IStaticURL = URLImplCore.IStaticURL;
 
 export module URLImplCore
 {
@@ -140,8 +136,12 @@ export module URLImplCore
 		_url?: URLImplCore.IImpl;
 	}
 
-	export interface IStaticURL<T> extends createClassProxy.ClassProxyStatic<T>
+	export interface IStaticURL<T> extends ClassProxyStatic<T>
 	{
+		new (href: Array<T | string>): T;
+		new (href: T | string, base?: T | string): T;
+		new (href: any, base?: any): T;
+
 		create(href: Array<T | string>): T;
 		create(href: T | string, base?: T | string): T;
 		create(href: any, base?: any): T;
@@ -199,7 +199,7 @@ export function packProxyURL<T>(classURL: URLImplCore.IStaticURL<T>)
 			return new target(...args);
 		},
 		*/
-	} as createClassProxy.IClassProxyHandler) as URLImplCore.IStaticURL<T>;
+	} as IClassProxyHandler) as URLImplCore.IStaticURL<T>;
 }
 
 export const URLImpl = packProxyURL(URLImplCore);
